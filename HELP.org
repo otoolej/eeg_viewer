@@ -1,0 +1,37 @@
+
+* shortcut keys
+
+ | key         | function                                           |
+ |-------------+----------------------------------------------------|
+ | up-arrow    | increase amplitude scale (+10%)                    |
+ | down-arrow  | decrease amplitude scale (-10%)                    |
+ | m           | toggle montage (between mono-polar and bipolar)    |
+ | left-arrow  | scroll forward (by 0.1 of epoch length) time scale |
+ | right-arrow | scroll back (by 0.1 of epoch length) time scale    |
+ | page-up     | scroll forward (+80%)                              |
+ | page-down   | scroll back (-80%)                                 |
+ | a           | increase time scale                                |
+ | s           | decrease time scale                                |
+ | i           | insert time mark: annotate data (click to remove)  |
+ | d           | display the start/stop times of the annotations    |
+ | c           | annotate channel                                   |
+
+* input 
+
+| input arguments    | default value(if any) |
+|--------------------+-----------------------|
+| signals            |                       |
+| fs                 |                       |
+| annotations        |                       |
+| channel_labels     |                       |
+| amplitude_scale    |                   300 |
+| hard_limit_voltage |                       |
+| highlight_channel  |                       |
+| bipolar_montage    |                     1 |
+| message_string     |                       |
+| full_screen        |                     0 |
+| lpf_cutoff         |                     0 |
+| hpf_cutoff         |                     0 |
+| annotation_labels  |                       |
+| epoch_length       |                       |
+| mask               |                       |

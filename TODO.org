@@ -1,0 +1,8 @@
+#+TITLE: list of TODOs (if/when time) for EEG viewer
+#
+# started: 08-Jan-2014
+
+* TODOs [0/2]
+  + [ ] 'select channel' dialog box assumes there is 8 channels; fix so will work for any
+    number of channels
+  + [ ] 
