@@ -470,6 +470,26 @@ elseif( strcmp(eventdata.Key,'i')==1 )
     handles.hObject_labels{L_hl+1}=h;
     guidata(hObject,handles);
     hold off;
+    
+elseif( strcmp(eventdata.Key,'v')==1 )  
+
+    [x1,y1]=ginput(1);
+    hold on;            
+    h1=plot(x1,y1,'k+','markersize',8,'linewidth',2);
+    [x2,y2]=ginput(1);
+    xx=[x1 x2]; yy=[y1 y2];
+    delete(h1);
+    
+    a_scale=handles.amplitude_scale;
+
+    xl=xlim; xl=abs(xl(2)-xl(1));
+    line([xx(2),xx(2)],[yy(1),yy(2)],'color','k','linewidth',2);
+    line([xx(2),xx(2)+2],[min(yy),min(yy)],'color','k','linewidth',2);    
+    text(xx(2)+xl.*0.01,min(yy)+abs(yy(2)-yy(1))./2, ...
+         [num2str( round(abs(yy(2)-yy(1)).*(a_scale/100)) ) ' \mu V'],'fontsize',16);
+
+    hold off;
+    
 
 elseif( strcmp(eventdata.Key,'d')==1 )  
 
