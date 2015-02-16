@@ -16,15 +16,16 @@
 % John M. O' Toole, University College Cork
 % Started: 29-05-2013
 %-------------------------------------------------------------------------------
-function []=eplot_annos(annos,figaxis,Fs,annos_labels)
+function []=eplot_annos(annos,figaxis,Fs,annos_labels,keep_xticks)
 if(nargin<2 || isempty(figaxis)), figaxis=gca; end
 if(nargin<3 || isempty(Fs)), Fs=1; end
 if(nargin<4 || isempty(annos_labels)), annos_labels=[]; end
-
+if(nargin<5 || isempty(keep_xticks)), keep_xticks=0; end
 
 
 LINE_PLOT=1;
 LINE_WIDTH=20;
+L=1;
 
 ANNO_COLOURS={[128 0 128]./256,[173 216 230]./256,[255 165 0]./256};
 
@@ -43,7 +44,7 @@ if(LINE_PLOT)
         L=length(annos); 
         line_scale=(1/L)+0.2;
         for p=1:L
-            plot_line_annos(annos{p},size(annos{p},1),Fs,...
+            plot_line_annos(annos{p},min(size(annos{p})),Fs,...
                             ANNO_COLOURS,LINE_WIDTH*line_scale,p);        
         end
         ylim([0.8 L+0.2]); 
@@ -69,7 +70,10 @@ else
 
     ylim([-0.1 (L)*1.2]);
 end
-set(figaxis,'Xtick',[]);
+if(~keep_xticks)
+    set(figaxis,'Xtick',[]);
+end
+
 
 
 
@@ -86,6 +90,8 @@ function plot_line_annos(annos,L,Fs,ANNO_COLOURS,LINE_WIDTH,ypoint)
 %---------------------------------------------------------------------
 % plot the lines to mark the annotations
 %---------------------------------------------------------------------
+[N,M]=size(annos);
+if(N>M), annos=annos.'; end
 
 hold all;
 for p=1:L

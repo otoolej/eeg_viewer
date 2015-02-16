@@ -16,11 +16,13 @@
 % John M. O' Toole, University College Cork
 % Started: 12-03-2013
 %-------------------------------------------------------------------------------
-function [sig,channel_labs]=check_montage(sig,channel_labs,BIPOLAR_MONT)
+function [sig,channel_labs]=check_montage(sig,channel_labs,BIPOLAR_MONT,SAMPSA_MONTAGE)
 if(nargin<3 || isempty(BIPOLAR_MONT)), BIPOLAR_MONT=0; end
+if(nargin<4 || isempty(SAMPSA_MONTAGE)), SAMPSA_MONTAGE=0; end
+
 
 % load in the montages:
-set_montage;
+[REF_MONT,BI_MONT,BI_MONT_LABS,BI_MONT_HEMS]=set_montage(length(channel_labs),SAMPSA_MONTAGE);
 
 if(~BIPOLAR_MONT)
     channel_order=REF_MONT;

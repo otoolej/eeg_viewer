@@ -36,15 +36,15 @@ if(F3db_lowpass==0),  F3db_lowpass=[];  end
 if(F3db_highpass==0), F3db_highpass=[]; end
 
 
-
+% $$$ dispVars(F3db_highpass,F3db_lowpass,order,order*2+1);
 if(isempty(F3db_highpass))
-    h=fdesign.lowpass('N,F3dB',order,F3db_lowpass,Fs);
+    h=fdesign.lowpass('N,F3dB',order*2+1,F3db_lowpass,Fs);
     
 elseif(isempty(F3db_lowpass))
     h=fdesign.highpass('N,F3dB',order,F3db_highpass,Fs);
     
 else
-    y=filter_butter(x,Fs,F3db_lowpass,[],order);
+    y=filter_butter(x,Fs,F3db_lowpass,[],order*2+1);
     y=filter_butter(y,Fs,[],F3db_highpass,order);    
     return;    
 % $$$     h=fdesign.bandpass('N,F3dB1,F3dB2',order,F3db_highpass,F3db_lowpass,Fs);

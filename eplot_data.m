@@ -101,8 +101,10 @@ elseif(BIPOLAR==2)
   set(hp([1:Mh]),'color',[0.5 0 0]);
   set(hp([(Mh+1):M]),'color',[0 0 0.5]);    
 elseif(BIPOLAR==0)
-  set(hp([2,3,4,5]),'color',[.0 0 0.5]);
-  set(hp([6,7,8,9]),'color',[0.5 0 0]);    
+  M_c=length(hp);
+  Mh=floor(M_c/2);
+  set(hp([2:Mh]),'color',[.0 0 0.5]);
+  set(hp([(Mh+1):M_c]),'color',[0.5 0 0]);    
   set(hp([1]),'color',[0.5 0 0]);      
 end
 
