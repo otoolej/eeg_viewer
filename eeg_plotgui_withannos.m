@@ -486,7 +486,8 @@ elseif( strcmp(eventdata.Key,'v')==1 )
     line([xx(2),xx(2)],[yy(1),yy(2)],'color','k','linewidth',2);
     line([xx(2),xx(2)+2],[min(yy),min(yy)],'color','k','linewidth',2);    
     text(xx(2)+xl.*0.01,min(yy)+abs(yy(2)-yy(1))./2, ...
-         [num2str( round(abs(yy(2)-yy(1)).*(a_scale/100)) ) ' \mu V'],'fontsize',16);
+         [num2str( round(abs(yy(2)-yy(1)).*(a_scale/100)) ) ' \mu V'],'fontsize',16, ...
+         'BackgroundColor','w');
 
     hold off;
     
