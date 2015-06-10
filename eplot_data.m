@@ -112,7 +112,7 @@ end
 %---------------------------------------------------------------------
 % Highlight one channel?
 %---------------------------------------------------------------------
-if(BIPOLAR>0 && ~isempty(highlight_chan_bi))
+if(BIPOLAR~=0 && ~isempty(highlight_chan_bi))
     
     for n=1:length(highlight_chan_bi)
         icc=find( strcmp(channel_labs,highlight_chan_bi{n})==1 );
