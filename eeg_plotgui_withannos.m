@@ -23,10 +23,14 @@ function varargout = eeg_plotgui_withannos(varargin)
 %
 % $$$ inarg_options=struct('signals',[],'fs',[],'annotations',[], ...
 % $$$                      'channel_labels',[],'amplitude_scale',300, ...
-% $$$                      'hard_limit_voltage',[],'highlight_channel',[],...
+% $$$                      'hard_limit_voltage',[],'highlight_channel_bi',[],...
+% $$$                      'highlight_channel_mono',[],...
 % $$$                      'bipolar_montage',1,'message_string',[],...
 % $$$                      'full_screen',0,'lpf_cutoff',0,'hpf_cutoff',0,...
-% $$$                      'annotation_labels',[],'epoch_length',[]);
+% $$$                      'annotation_labels',[],'epoch_length',[], ...
+% $$$                      'mask',[],'parent_handle',[], ...
+% $$$                      'insert_ta_scale',0,'ta_xlength',4);
+
 
 
 % Edit the above text to modify the response to help eeg_plotgui_withannos
@@ -74,7 +78,9 @@ inarg_options=struct('signals',[],'fs',[],'annotations',[], ...
                      'bipolar_montage',1,'message_string',[],...
                      'full_screen',0,'lpf_cutoff',0,'hpf_cutoff',0,...
                      'annotation_labels',[],'epoch_length',[], ...
-                     'mask',[],'parent_handle',[]);
+                     'mask',[],'parent_handle',[], ...
+                     'time_range',[], ...
+                     'insert_ta_scale',0,'ta_xlength',4);
 
 %# read the acceptable names
 inarg_option_names=fieldnames(inarg_options);
@@ -120,7 +126,9 @@ handles.fill_area_xpos=[];
 handles.mask=inarg_options.mask;
 handles.open_win_HC=[];
 handles.parent_handle=inarg_options.parent_handle;
-
+handles.insert_ta_scale=inarg_options.insert_ta_scale;
+handles.ta_xlength=inarg_options.ta_xlength;
+handles.time_range=inarg_options.time_range;
 
 
 % keep backup of data (for filtering later, if needed):
@@ -188,6 +196,19 @@ handles.output=[handles.plot_axes handles.anno_axis];
 
 handles.x_limit=get(handles.plot_axes,'xlim');
 
+% change the time limits:
+if(handles.time_range)
+  set(handles.plot_axes,'xlim',handles.time_range);
+  handles.x_limit=get(handles.plot_axes,'xlim');
+end
+
+
+% include time-amplitude label if required:
+if(handles.insert_ta_scale)
+    handles=insert_cross_hairs(handles);
+end
+
+
 guidata(hObject, handles);
 
 
@@ -237,6 +258,9 @@ if(handles.full_screen)
 % $$$   set(hObject,'Position',[1 1 scrsz(3) scrsz(4)]); 
   set(hObject,'Units','normalized','position',[0,0,1,0.7]);
 end
+
+
+
 
 
 
@@ -297,6 +321,7 @@ function back_scroll_Callback(hObject, eventdata, handles)
 
 handles.x_limit=handles.x_limit-5;
 set(handles.plot_axes,'xlim',handles.x_limit);
+if(handles.insert_ta_scale), handles=insert_cross_hairs(handles); end
 guidata(handles.eeg_plotgui,handles);
 
 
@@ -313,6 +338,7 @@ L_epoch=str2double( get(hObject,'String') );
 handles.x_limit=[handles.x_limit(1) handles.x_limit(1)+L_epoch];
 
 set(handles.plot_axes,'xlim',handles.x_limit);
+if(handles.insert_ta_scale), handles=insert_cross_hairs(handles); end
 guidata(handles.eeg_plotgui,handles);
 
 
@@ -343,6 +369,7 @@ function forward_scroll_Callback(hObject, eventdata, handles)
 
 handles.x_limit=handles.x_limit+5;
 set(handles.plot_axes,'xlim',handles.x_limit);
+if(handles.insert_ta_scale), handles=insert_cross_hairs(handles); end
 guidata(handles.eeg_plotgui,handles);
 
 
@@ -426,6 +453,7 @@ elseif( strcmp(eventdata.Key,'leftarrow')==1 )
   
   handles.x_limit=handles.x_limit-(x_length*0.1);
   set(handles.plot_axes,'xlim',handles.x_limit);
+  if(handles.insert_ta_scale), handles=insert_cross_hairs(handles); end
   guidata(hObject,handles);
 
 elseif( strcmp(eventdata.Key,'rightarrow')==1 )
@@ -434,6 +462,7 @@ elseif( strcmp(eventdata.Key,'rightarrow')==1 )
   
   handles.x_limit=handles.x_limit+(x_length*0.1);
   set(handles.plot_axes,'xlim',handles.x_limit);
+  if(handles.insert_ta_scale), handles=insert_cross_hairs(handles); end
   guidata(hObject,handles);
 
   
@@ -443,6 +472,7 @@ elseif( strcmp(eventdata.Key,'pagedown')==1 )
   
   handles.x_limit=handles.x_limit+(x_length*0.8);
   set(handles.plot_axes,'xlim',handles.x_limit);
+  if(handles.insert_ta_scale), handles=insert_cross_hairs(handles); end
   guidata(hObject,handles);
 
 elseif( strcmp(eventdata.Key,'pageup')==1 )
@@ -451,7 +481,9 @@ elseif( strcmp(eventdata.Key,'pageup')==1 )
   
   handles.x_limit=handles.x_limit-(x_length*0.8);
   set(handles.plot_axes,'xlim',handles.x_limit);
+  if(handles.insert_ta_scale), handles=insert_cross_hairs(handles); end
   guidata(hObject,handles);
+  
 
 elseif( strcmp(eventdata.Key,'i')==1 )  
 
@@ -490,8 +522,25 @@ elseif( strcmp(eventdata.Key,'v')==1 )
          'BackgroundColor','w');
 
     hold off;
-    
 
+    
+elseif( strcmp(eventdata.Key,'x')==1 )  
+
+    % toggle on/off time-amplitude legend:
+    if(handles.insert_ta_scale==1)
+        handles.insert_ta_scale=0;
+        if(isfield(handles,'ta_group'))
+            hg=findobj(handles.plot_axes,'Tag','ta_group');
+            if(~isempty(hg))
+                delete(hg);        
+            end
+        end
+    else
+        handles=insert_cross_hairs(handles);          
+    end
+    guidata(hObject,handles);
+
+    
 elseif( strcmp(eventdata.Key,'d')==1 )  
 
     L_hl=length(handles.hObject_labels);
@@ -535,6 +584,7 @@ elseif( strcmp(eventdata.Key,'a')==1 )
   % and put this number for display in the 'epoch box':
   epoch_handle=findobj(hObject,'Tag','epoch_size');
   set(epoch_handle,'String',num2str(L_epoch));
+  if(handles.insert_ta_scale), handles=insert_cross_hairs(handles); end
   guidata(hObject,handles);
 
   
@@ -555,6 +605,7 @@ elseif( strcmp(eventdata.Key,'s')==1 )
   % and put this number for display in the 'epoch box':
   epoch_handle=findobj(hObject,'Tag','epoch_size');
   set(epoch_handle,'String',num2str(L_epoch));
+  if(handles.insert_ta_scale), handles=insert_cross_hairs(handles); end  
   guidata(hObject,handles);
   
   
@@ -631,6 +682,7 @@ epoch_handle=findobj(gcbf,'Tag','epoch_size');
 set(epoch_handle,'String',num2str(L_epoch));
 
 
+if(handles.insert_ta_scale), handles=insert_cross_hairs(handles); end
 guidata(gcbf,handles);
 
 
@@ -662,9 +714,7 @@ val=contents{get(hObject,'Value')};
 
 
 if( strcmp(val,'off')==1 )
-    
     handles.sig=handles.sig_original;
-    
     handles.hfp_fc=0;
 else
     
@@ -907,10 +957,64 @@ eplot_data(handles.sig,handles.Fs,handles.plot_axes, ...
 handles.hObject_labels=reinstate_fill_areas(handles);
 guidata(handles.eeg_plotgui,handles);
 
+if(handles.insert_ta_scale)
+    handles=insert_cross_hairs(handles);
+    guidata(handles.eeg_plotgui,handles);
+end
+
 
 % set focus to plot (for shortcut keys)
 % HACK:
 % NOT WORKING:
 % $$$ axes(handles.plot_axes);
 % $$$ set(handles.plot_axes,'Selected','on');
+
+
+function handles=insert_cross_hairs(handles)
+%---------------------------------------------------------------------
+% insert 'cross-hairs', a label for time and amplitude
+%---------------------------------------------------------------------
+% $$$ if(nargin<2 || isempty(hObject)), hObject=[]; end
+
+XHAIRS_LENGTH=handles.ta_xlength; 
+hgca=gca;
+axes(handles.plot_axes);
+% $$$ keyboard;
+
+if(isfield(handles,'ta_group'))
+    hg=findobj(handles.plot_axes,'Tag','ta_group');
+    if(~isempty(hg))
+        delete(hg);        
+    end
+end
+handles.ta_group=hggroup('Tag','ta_group');
+
+
+xls=xlim; yls=ylim; 
+xl=abs(xls(2)-xls(1));  yl=abs(yls(2)-yls(1));
+xts=get(gca,'xtick');   yts=get(gca,'ytick');
+xpos(1)=0.8*xl+xls(1); 
+ypos(1:2)=yts(1:2); 
+xpos(2)=xpos(1)+XHAIRS_LENGTH;
+
+a_scale=handles.amplitude_scale;
+line([xpos(1) xpos(1)],[ypos(1),ypos(2)],'color','k','linewidth',2,'parent',handles.ta_group);
+line(xpos,[ypos(1) ypos(1)],'color','k','linewidth',2,'parent',handles.ta_group);
+text(xpos(1)+xl.*0.01, ypos(1)+abs(ypos(2)-ypos(1))./2, [num2str( round( ...
+    abs(ypos(2)-ypos(1)).*(a_scale/100)) ) ' $\mu\!V$'], 'fontsize',16, ...
+     'BackgroundColor','w','Interpreter','latex','fontname','Arial','parent', ...
+     handles.ta_group);
+text(xpos(1),ypos(1)-yl*0.04,[num2str(XHAIRS_LENGTH) ' seconds'], 'fontsize',16, ...
+     'BackgroundColor','w','Interpreter','latex','fontname','Arial','parent', ...
+     handles.ta_group);
+
+handles.insert_ta_scale=1;
+
+axes(hgca);
+% $$$ if(~isempty(hObject))
+% $$$     guidata(hObject,handles);
+% $$$ else
+% $$$     guidata(handles.eeg_plotgui,handles);
+% $$$ end
+
 

@@ -16,24 +16,32 @@
  | d           | display the start/stop times of the annotations    |
  | c           | annotate channel                                   |
  | v           | measure voltage (amplitude) with cross-hairs       |
+ | x           | insert time-amplitude label in fixed location      |
+
+
 
 
 * input 
 
-| input arguments    | default value(if any) |
-|--------------------+-----------------------|
-| signals            |                       |
-| fs                 |                       |
-| annotations        |                       |
-| channel_labels     |                       |
-| amplitude_scale    |                   300 |
-| hard_limit_voltage |                       |
-| highlight_channel  |                       |
-| bipolar_montage    |                     1 |
-| message_string     |                       |
-| full_screen        |                     0 |
-| lpf_cutoff         |                     0 |
-| hpf_cutoff         |                     0 |
-| annotation_labels  |                       |
-| epoch_length       |                       |
-| mask               |                       |
+| input arguments    | default value(if any) | comment                                   |
+|--------------------+-----------------------+-------------------------------------------|
+| signals            |                       | matrix of EEG signals                     |
+| fs                 |                       | sampling frequency (Hz)                   |
+| annotations        |                       | 1 or 2 annotations to plot above          |
+| channel_labels     |                       | channel labels of 'signals'               |
+| amplitude_scale    |                   300 | amplitude scaling                         |
+| hard_limit_voltage |                       | if want upper limit on voltage            |
+| highlight_channel  |                       | highlight channel(s) in green             |
+| bipolar_montage    |                     1 | if want to start with bipolar montage     |
+| message_string     |                       | working?                                  |
+| full_screen        |                     0 | working?                                  |
+| lpf_cutoff         |                     0 | low-pass filter cut-off                   |
+| hpf_cutoff         |                     0 | high-pass filter cut-off                  |
+| annotation_labels  |                       | labels to 1/2 annotations                 |
+| epoch_length       |                       | how long to plot (seconds)                |
+| mask               |                       | ?                                         |
+| insert_ta_scale    |                     0 | include time-amplitude scale legend (0/1) |
+| ta_xlength         |                     4 | length of time legend (seconds)           |
+| time_range         |                       | start and stop times for plot (seconds)   |
+
+

@@ -1,0 +1,11 @@
+%---------------------------------------------------------------------
+% test signal
+%---------------------------------------------------------------------
+Fs = 64;                     % sampling rate
+x = rand(9,10*60*Fs);        % 9-channels of 10 minute data
+annos = zeros(2,10*60*Fs); 
+
+
+eeg_plotgui_withannos('signals',x, ...
+                      'fs',Fs, ...
+                      )

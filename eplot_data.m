@@ -116,14 +116,14 @@ if(BIPOLAR~=0 && ~isempty(highlight_chan_bi))
     
     for n=1:length(highlight_chan_bi)
         icc=find( strcmp(channel_labs,highlight_chan_bi{n})==1 );
-        set(hp(icc),'color',[0 .5 0]);
+        set(hp(icc),'color',[0 .3904 0]);
     end
     
 elseif(BIPOLAR==0 && ~isempty(highlight_chan_mono))
 
     for n=1:length(highlight_chan_mono)
         icc=find( strcmp(channel_labs,[highlight_chan_mono{n} '-Ref'])==1 );
-        set(hp(icc),'color',[0 .5 0]);
+        set(hp(icc),'color',[0 .3904 0]);
     end
 
 end
