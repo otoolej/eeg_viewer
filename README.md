@@ -14,7 +14,8 @@ Requires Matlab programming environment.
 
 # contents
 * [example](#example)
-* [options and keys](#options)
+* [shortcut keys](#shortcut-keys)
+* [command line arguments](#command-line-arguments)
 * [requirements](#requirements)
 * [test computer setup](#test-computer-setup)
 * [licence](#licence)
@@ -49,9 +50,29 @@ Requires Matlab programming environment.
 ![Plot for test (Gaussian noise) signal](pics/example_test_Gaussian_noise.png)
 
 
-## options
+## shortcut keys
 
-Call function with:  
+| key         | function                                           |
+|-------------|----------------------------------------------------|
+| up-arrow    | increase amplitude scale (+10%)                    |
+| down-arrow  | decrease amplitude scale (-10%)                    |
+| m           | toggle montage (between mono-polar and bipolar)    |
+| left-arrow  | scroll forward (by 0.1 of epoch length) time scale |
+| right-arrow | scroll back (by 0.1 of epoch length) time scale    |
+| page-up     | scroll forward (+80%)                              |
+| page-down   | scroll back (-80%)                                 |
+| a           | increase time scale                                |
+| s           | decrease time scale                                |
+| i           | insert time mark: annotate data (click to remove)  |
+| d           | display the start/stop times of the annotations    |
+| c           | annotate channel                                   |
+| v           | measure voltage (amplitude) with cross-hairs       |
+| x           | insert time-amplitude label in fixed location      |
+
+
+## command line arguments
+
+Call function with the following command line arguments:  
 
 | input arguments    | default value | comment                                   |
 |--------------------|---------------|-------------------------------------------|
@@ -75,24 +96,6 @@ Call function with:
 | time_range         |               | start and stop times for plot (seconds)   |
 
 
-Shortcut keys:  
-
-| key         | function                                           |
-|-------------|----------------------------------------------------|
-| up-arrow    | increase amplitude scale (+10%)                    |
-| down-arrow  | decrease amplitude scale (-10%)                    |
-| m           | toggle montage (between mono-polar and bipolar)    |
-| left-arrow  | scroll forward (by 0.1 of epoch length) time scale |
-| right-arrow | scroll back (by 0.1 of epoch length) time scale    |
-| page-up     | scroll forward (+80%)                              |
-| page-down   | scroll back (-80%)                                 |
-| a           | increase time scale                                |
-| s           | decrease time scale                                |
-| i           | insert time mark: annotate data (click to remove)  |
-| d           | display the start/stop times of the annotations    |
-| c           | annotate channel                                   |
-| v           | measure voltage (amplitude) with cross-hairs       |
-| x           | insert time-amplitude label in fixed location      |
 
 
 ## requirements
