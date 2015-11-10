@@ -9,8 +9,7 @@ If shortcuts not working then bring plot axis into focus by clicking on main plo
 
 Requires Matlab programming environment.
 
-![Example with EEG from a preterm infant](pics/detector_example_for_website.png) ((taken
- from EEG burst detector))[http://otoolej.github.io/code/burst_detector/]
+![Example with EEG from a preterm infant, from burst detector http://otoolej.github.io/code/burst_detector/](pics/detector_example_for_website.png)
 
 
 # contents
@@ -22,7 +21,7 @@ Requires Matlab programming environment.
 * [contact](#contact)
 
 
-# example
+## example
 ```matlab
         %---------------------------------------------------------------------
 		% test signal
@@ -50,67 +49,67 @@ Requires Matlab programming environment.
 ![Plot for test (Gaussian noise) signal](pics/example_test_Gaussian_noise.png)
 
 
-# options
+## options
 
-Call function with:
+Call function with:  
 
-| input arguments    | default value(if any) | comment                                   |
-|--------------------+-----------------------+-------------------------------------------|
-| signals            |                       | matrix of EEG signals                     |
-| fs                 |                       | sampling frequency (Hz)                   |
-| annotations        |                       | 1 or 2 annotations to plot above          |
-| channel_labels     |                       | channel labels of 'signals'               |
-| amplitude_scale    |                   300 | amplitude scaling                         |
-| hard_limit_voltage |                       | if want upper limit on voltage            |
-| highlight_channel  |                       | highlight channel(s) in green             |
-| bipolar_montage    |                     1 | if want to start with bipolar montage     |
-| message_string     |                       | working?                                  |
-| full_screen        |                     0 | working?                                  |
-| lpf_cutoff         |                     0 | low-pass filter cut-off                   |
-| hpf_cutoff         |                     0 | high-pass filter cut-off                  |
-| annotation_labels  |                       | labels to 1/2 annotations                 |
-| epoch_length       |                       | how long to plot (seconds)                |
-| mask               |                       | ?                                         |
-| insert_ta_scale    |                     0 | include time-amplitude scale legend (0/1) |
-| ta_xlength         |                     4 | length of time legend (seconds)           |
-| time_range         |                       | start and stop times for plot (seconds)   |
-
-
-Shortcut keys:
-
- | key         | function                                           |
- |-------------+----------------------------------------------------|
- | up-arrow    | increase amplitude scale (+10%)                    |
- | down-arrow  | decrease amplitude scale (-10%)                    |
- | m           | toggle montage (between mono-polar and bipolar)    |
- | left-arrow  | scroll forward (by 0.1 of epoch length) time scale |
- | right-arrow | scroll back (by 0.1 of epoch length) time scale    |
- | page-up     | scroll forward (+80%)                              |
- | page-down   | scroll back (-80%)                                 |
- | a           | increase time scale                                |
- | s           | decrease time scale                                |
- | i           | insert time mark: annotate data (click to remove)  |
- | d           | display the start/stop times of the annotations    |
- | c           | annotate channel                                   |
- | v           | measure voltage (amplitude) with cross-hairs       |
- | x           | insert time-amplitude label in fixed location      |
+| input arguments    | default value | comment                                   |
+|--------------------|---------------|-------------------------------------------|
+| signals            |               | matrix of EEG signals                     |
+| fs                 |               | sampling frequency (Hz)                   |
+| annotations        |               | 1 or 2 annotations to plot above          |
+| channel_labels     |               | channel labels of 'signals'               |
+| amplitude_scale    |           300 | amplitude scaling                         |
+| hard_limit_voltage |               | if want upper limit on voltage            |
+| highlight_channel  |               | highlight channel(s) in green             |
+| bipolar_montage    |             1 | if want to start with bipolar montage     |
+| message_string     |               | working?                                  |
+| full_screen        |             0 | working?                                  |
+| lpf_cutoff         |             0 | low-pass filter cut-off                   |
+| hpf_cutoff         |             0 | high-pass filter cut-off                  |
+| annotation_labels  |               | labels to 1/2 annotations                 |
+| epoch_length       |               | how long to plot (seconds)                |
+| mask               |               | ?                                         |
+| insert_ta_scale    |             0 | include time-amplitude scale legend (0/1) |
+| ta_xlength         |             4 | length of time legend (seconds)           |
+| time_range         |               | start and stop times for plot (seconds)   |
 
 
-# requirements
+Shortcut keys:  
+
+| key         | function                                           |
+|-------------|----------------------------------------------------|
+| up-arrow    | increase amplitude scale (+10%)                    |
+| down-arrow  | decrease amplitude scale (-10%)                    |
+| m           | toggle montage (between mono-polar and bipolar)    |
+| left-arrow  | scroll forward (by 0.1 of epoch length) time scale |
+| right-arrow | scroll back (by 0.1 of epoch length) time scale    |
+| page-up     | scroll forward (+80%)                              |
+| page-down   | scroll back (-80%)                                 |
+| a           | increase time scale                                |
+| s           | decrease time scale                                |
+| i           | insert time mark: annotate data (click to remove)  |
+| d           | display the start/stop times of the annotations    |
+| c           | annotate channel                                   |
+| v           | measure voltage (amplitude) with cross-hairs       |
+| x           | insert time-amplitude label in fixed location      |
+
+
+## requirements
 Either Matlab (R2013 or newer,
 [Mathworks website](http://www.mathworks.co.uk/products/matlab/)).
 
 
 
-# test computer setup
+## test computer setup
 - hardware:  Intel(R) Xeon(R) CPU E5-1603 0 @ 2.80GHz; 8GB memory.
 - operating system: Ubuntu GNU/Linux x86_64 distribution (Vivid Vervet, 15.04), with Linux
   kernel 3.19.0-31-generic 
-- software: Octave 3.8.2 (using Gnuplot 4.6 patchlevel 6), with 'octave-signal' toolbox, and Matlab (R2013a)
+- software: Matlab (R2013a)
 
 ---
 
-# licence
+## licence
 
 ```
 Copyright (c) 2015, John M. O' Toole, University College Cork
@@ -145,7 +144,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ---
 
-# contact
+## contact
 
 John M. O' Toole
 
@@ -157,3 +156,5 @@ Western Gateway Building, Room 2.17,
 Cork, Ireland
 
 
+- email: j.otoole AT ieee.org
+- web: http://otoolej.github.io/
