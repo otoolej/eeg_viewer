@@ -72,7 +72,7 @@ Requires Matlab programming environment.
 
 ## command line arguments
 
-Call function with the following command line arguments:  
+Call `eeg_plotgui_withannos` function with the following command line arguments:  
 
 | input arguments    | default value | comment                                   |
 |--------------------|---------------|-------------------------------------------|
