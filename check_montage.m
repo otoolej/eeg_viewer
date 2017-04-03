@@ -37,7 +37,8 @@ if(~BIPOLAR_MONT)
     
   inw=zeros(1,M);
   for m=1:M
-    inw(m)=find(~cellfun('isempty',strfind(channel_labs,channel_order{m})));
+    inw(m)=find(~cellfun('isempty',strfind(upper(channel_labs), ...
+                                           upper(channel_order{m}))));
   end
     
   inw=inw(end:-1:1);
@@ -74,10 +75,10 @@ L=length(bi_mont);  [M,N]=size(sigs);
 bi_sigs=zeros(L,N);
 
 for n=1:L
-    isig_first=find(~cellfun('isempty',strfind(channel_names,bi_mont{n}{1})));
-    isig_second=find(~cellfun('isempty',strfind(channel_names,bi_mont{n}{2})));    
-% $$$     isig_first=find(strncmp([channel_names],bi_mont{n}{1},2)==1);
-% $$$     isig_second=find(strncmp([channel_names],bi_mont{n}{2},2)==1);    
+    isig_first=find(~cellfun('isempty',strfind(upper(channel_names), ...
+                                               upper(bi_mont{n}{1}))));
+    isig_second=find(~cellfun('isempty',strfind(upper(channel_names),...
+                                                upper(bi_mont{n}{2}))));    
     
     if(isempty(isig_first) || isempty(isig_second))
         keyboard;
