@@ -17,12 +17,14 @@
 % John M. O' Toole, University College Cork
 % Started: 10-06-2015
 %
-% last update: Time-stamp: <2015-10-08 15:07:31 (otoolej)>
+% last update: Time-stamp: <2018-03-15 18:07:27 (otoolej)>
 %-------------------------------------------------------------------------------
-function [hfig]=printing_viewer(fignum,fname,YLABELS_SHIFT)
+function [hfig]=printing_viewer(fignum,fname,YLABELS_SHIFT,REMOVE_ANNO_AXIS)
 if(nargin<1 || isempty(fignum)), fignum=1; end
 if(nargin<2 || isempty(fname)), fname=[]; end
 if(nargin<3 || isempty(YLABELS_SHIFT)), YLABELS_SHIFT=0; end
+if(nargin<4 || isempty(REMOVE_ANNO_AXIS)), REMOVE_ANNO_AXIS=0; end
+
 
 
 
@@ -53,26 +55,36 @@ if(YLABELS_SHIFT)
         end
         for n=1:N_channels
             if(N_channels>3)
-                text(xl(1)+1,y_pos(n),ch_labels{n},'fontname','Arial','fontsize',14, ...
+                text(xl(1)+1,y_pos(n),ch_labels{n},'fontname','helvetica','fontsize',14, ...
                      'backgroundcolor','w','horizontalalignment','left',...
                      'Parent',ax(p));
             else
-                text(xl(1)+1,y_pos(n),ch_labels{n},'fontname','Arial','fontsize',14, ...
-                     'color','w','horizontalalignment','left',...
+                text(xl(1)+1,y_pos(n),ch_labels{n},'fontname','helvetica','fontsize',14, ...
+                     'backgroundcolor','w','horizontalalignment','left',...
                      'Parent',ax(p));
             end
         end
         
         set(ax(p),'xtick',[]);
-        set(ax(p),'fontName','Arial');
+        set(ax(p),'fontName','helvetica');
         set(ax(p),'fontSize',14);
     end
 end
 
 
 set(gca,'xtick',[]);
-set(gca,'fontName','Arial');
+set(gca,'fontName','helvetica');
 set(gca,'fontSize',14);
+
+
+% remove annotation axis:
+if(REMOVE_ANNO_AXIS)
+    ax_obj=findobj(gcf, 'type','axes');
+    ianno=find(ismember({ax_obj.Tag},'anno_axis'));
+    if(~isempty(ianno))
+        delete(ax_obj(ianno));
+    end
+end
 
 
 if(~isempty(fname))
