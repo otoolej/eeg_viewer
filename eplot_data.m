@@ -17,9 +17,9 @@
 % Started: 21-07-2012
 %-------------------------------------------------------------------------------
 function [hp]=eplot_data(sig,Fs,figaxes,channel_labs,amplitude_scale,HARD_LIMIT_VOLT,...
-                         highlight_chan_bi,highlight_chan_mono,x_limit,BIPOLAR)
+                         highlight_chan_bi,highlight_chan_mono,x_limit,BIPOLAR, ccolours)
 if(nargin<2 || isempty(Fs)) Fs=1; end
-if(nargin<3 || isempty(figaxes)) figaxes=gca; end
+if(nargin<3 || isempty(figaxes)) figaxes=[]; end
 if(nargin<4 || isempty(channel_labs)) channel_labs=[]; end
 if(nargin<5 || isempty(amplitude_scale)), amplitude_scale=[]; end
 if(nargin<6 || isempty(HARD_LIMIT_VOLT)), HARD_LIMIT_VOLT=[]; end
@@ -27,10 +27,18 @@ if(nargin<7 || isempty(highlight_chan_bi)), highlight_chan_bi=[]; end
 if(nargin<8 || isempty(highlight_chan_mono)), highlight_chan_mono=[]; end
 if(nargin<9 || isempty(x_limit)), x_limit=[]; end
 if(nargin<10 || isempty(BIPOLAR)), BIPOLAR=1; end
+if(nargin<11 || isempty(ccolours)), ccolours=[0.5 0 0; 0 0 0.5]; end
+
 
 
 % set axis:
-axes(figaxes);
+if(~isempty(figaxes))
+    axes(figaxes);
+else
+    figaxes = gca;
+end
+
+
 
 
 %---------------------------------------------------------------------
@@ -94,18 +102,18 @@ end
 
 
 if(BIPOLAR==1 || BIPOLAR==-1)
-  set(hp([1:2:M]),'color',[0.5 0 0]);
-  set(hp([2:2:M]),'color',[0 0 0.5]);    
+  set(hp([1:2:M]),'color',ccolours(1, :));
+  set(hp([2:2:M]),'color',ccolours(2, :));    
 elseif(BIPOLAR==2)
   Mh=floor(M/2);
-  set(hp([1:Mh]),'color',[0.5 0 0]);
-  set(hp([(Mh+1):M]),'color',[0 0 0.5]);    
+  set(hp([1:Mh]),'color',ccolours(1, :));
+  set(hp([(Mh+1):M]),'color',ccolours(2, :));    
 elseif(BIPOLAR==0)
   M_c=length(hp);
   Mh=floor(M_c/2);
-  set(hp([2:Mh]),'color',[.0 0 0.5]);
-  set(hp([(Mh+1):M_c]),'color',[0.5 0 0]);    
-  set(hp([1]),'color',[0.5 0 0]);      
+  set(hp([2:Mh]),'color',ccolours(2, :));
+  set(hp([(Mh+1):M_c]),'color',ccolours(1, :));    
+  set(hp([1]),'color',ccolours(1, :));      
 end
 
 
